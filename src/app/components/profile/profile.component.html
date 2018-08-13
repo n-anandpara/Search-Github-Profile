@@ -1,0 +1,58 @@
+<form action="" class="search-form">
+  <div class="form-group">
+    <input type="text" class="form-control" placeholder="Search git users with user name" [(ngModel)]="username" name="username" (keyup)="findProfile()">
+  </div>
+</form>
+
+
+<div *ngIf="profile">
+  <div class="card">
+    <div class="card-header">
+      {{profile.name}} <small>({{ profile.login }})</small>
+      <span *ngIf ="profile.company">, Works in {{ profile.company }} </span>
+      {{ profile.location }}
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-sm-3">
+          <img src="{{ profile.avatar_url }}" class="rounded-circle" alt="Profile Image" height="250" width="250">
+        </div>
+        <div class="col-sm-5">
+          <ul class="list-group">
+            <li class="list-group-item" *ngIf="profile.bio"> {{ profile.bio }} </li>
+            <li class="list-group-item" *ngIf="profile.hireable"> Available for hire </li>
+            <li class="list-group-item" *ngIf="profile.blog"> {{ profile.blog }} </li>
+            <li class="list-group-item" *ngIf="profile.email"> {{ profile.email }} </li>
+          </ul>
+        </div>
+        <div class="col-sm-4">
+          <div>
+            <p>
+              <span><label class="label-primary"> {{ profile.followers }} Followers</label></span>
+              <span><label class="label-primary"> {{ profile.following }} Following </label></span>
+              <span><label class="label-primary"> {{ profile.public_gists }} Public gists </label></span>
+              <span><label class="label-primary"> {{ profile.public_repos }} Public Repos </label></span>
+            </p>
+            <p>
+              <a href="{{ profile.html_url }}" target="_blank" class="btn btn-success btn-sm">
+                View Profile on Github
+              </a>
+            </p>
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Repos</h3>
+              </div>
+              <div class="card-body" *ngFor="let repo of repos">
+                  <p class="clearfix"> <span style="font-weight: 600;">{{ repo.name }}</span>
+                  <a href="{{ repo.html_url }}" target="_blank" class="btn btn-sm btn-warning float-right">View This Project on Github</a>
+                </p>
+                  <p> {{ repo.description }} </p>
+                  <hr>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
